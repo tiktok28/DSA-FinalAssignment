@@ -9,28 +9,28 @@ public class Main {
         BST tree = new BST();
         ArrayList<Comparable> Array = new ArrayList<Comparable>();
 
-//        System.out.println("""
-//                ██████╗ ██╗███╗   ██╗ █████╗ ██████╗ ██╗   ██╗    ███████╗███████╗ █████╗ ██████╗  ██████╗██╗  ██╗    ████████╗██████╗ ███████╗███████╗
-//                ██╔══██╗██║████╗  ██║██╔══██╗██╔══██╗╚██╗ ██╔╝    ██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝██║  ██║    ╚══██╔══╝██╔══██╗██╔════╝██╔════╝
-//                ██████╔╝██║██╔██╗ ██║███████║██████╔╝ ╚████╔╝     ███████╗█████╗  ███████║██████╔╝██║     ███████║       ██║   ██████╔╝█████╗  █████╗ \s
-//                ██╔══██╗██║██║╚██╗██║██╔══██║██╔══██╗  ╚██╔╝      ╚════██║██╔══╝  ██╔══██║██╔══██╗██║     ██╔══██║       ██║   ██╔══██╗██╔══╝  ██╔══╝ \s
-//                ██████╔╝██║██║ ╚████║██║  ██║██║  ██║   ██║       ███████║███████╗██║  ██║██║  ██║╚██████╗██║  ██║       ██║   ██║  ██║███████╗███████╗
-//                ╚═════╝ ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝       ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝
-//
-//                """);
+        System.out.println("""
+                ██████╗ ██╗███╗   ██╗ █████╗ ██████╗ ██╗   ██╗    ███████╗███████╗ █████╗ ██████╗  ██████╗██╗  ██╗    ████████╗██████╗ ███████╗███████╗
+                ██╔══██╗██║████╗  ██║██╔══██╗██╔══██╗╚██╗ ██╔╝    ██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝██║  ██║    ╚══██╔══╝██╔══██╗██╔════╝██╔════╝
+                ██████╔╝██║██╔██╗ ██║███████║██████╔╝ ╚████╔╝     ███████╗█████╗  ███████║██████╔╝██║     ███████║       ██║   ██████╔╝█████╗  █████╗ \s
+                ██╔══██╗██║██║╚██╗██║██╔══██║██╔══██╗  ╚██╔╝      ╚════██║██╔══╝  ██╔══██║██╔══██╗██║     ██╔══██║       ██║   ██╔══██╗██╔══╝  ██╔══╝ \s
+                ██████╔╝██║██║ ╚████║██║  ██║██║  ██║   ██║       ███████║███████╗██║  ██║██║  ██║╚██████╗██║  ██║       ██║   ██║  ██║███████╗███████╗
+                ╚═════╝ ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝       ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝
+
+                """);
 
         boolean running = true;
 
         do {
-//            System.out.println("""
-//                .----------------------.
-//                | 1.Insert Node\s       |
-//                | 2.Delete Node\s       |
-//                | 3.Search Node\s       |
-//                | 4.Tree Traversals\s   |
-//                | 5.Display Tree\s      |
-//                | 6.Exit\s              |
-//                '----------------------'""");
+            System.out.println("""
+                .----------------------.
+                | 1.Insert Node\s       |
+                | 2.Delete Node\s       |
+                | 3.Search Node\s       |
+                | 4.Tree Traversals\s   |
+                | 5.Display Tree\s      |
+                | 6.Exit\s              |
+                '----------------------'""");
             System.out.print("\nPick an option: ");
 
             int option = keyboard.nextInt();
@@ -41,11 +41,21 @@ public class Main {
                 for (int i = 0; i < 7; i++) {
                     while (!(Array.size() == 7)) {
                         System.out.println("Please enter an Element");
-                        inputValue = keyboard.next();
-                        if (!(Array.contains(inputValue))) {
-                            Array.add(inputValue);
-                        } else {
-                            System.out.println("No duplicates allowed!");
+                        try{
+                            inputValue = Integer.parseInt(keyboard.next());
+                            if (!(Array.contains(inputValue))) {
+                                Array.add(inputValue);
+                            } else {
+                                System.out.println("No duplicates allowed!");
+                            }
+                        }
+                        catch(Exception e){
+                            inputValue = keyboard.next();
+                            if (!(Array.contains(inputValue))) {
+                                Array.add(inputValue);
+                            } else {
+                                System.out.println("No duplicates allowed!");
+                            }
                         }
                     }
                 }
@@ -54,14 +64,31 @@ public class Main {
                 }
             }
             else if(option == 2){
-                System.out.println("Node Deletion not done yet");
+                System.out.println("Select a node to be deleted");
+                Comparable inputValue;
+                try {
+                    inputValue = Integer.parseInt(keyboard.next());
+                    tree.deleteNode(inputValue);
+                }
+                catch(Exception e){
+                    inputValue = keyboard.next();
+                    tree.deleteNode(inputValue);
+                }
+
             }
             else if(option == 3){
-                Comparable searchItem = keyboard.next();
+                System.out.println("Input a node to be searched.");
+                Comparable searchItem;
+                try {
+                    searchItem = Integer.parseInt(keyboard.next());
+                }
+                catch(Exception e){
+                    searchItem = keyboard.next();
+                }
                 if(tree.searchNode(tree.root, searchItem) == null){
                     System.out.println("The node does not exist");
                 }else{
-                    System.out.println(searchItem + " Exists in the tree");
+                    System.out.println(searchItem + " exists in the tree");
                 }
             }else if(option == 4) {
 

@@ -1,8 +1,10 @@
+import com.sun.source.tree.Tree;
+
 public class BST<Thing extends Comparable<Thing>> {
 
     TreeNode root = null;
 
-    public BST() {
+    public  BST() {
 
     }
 
@@ -11,12 +13,14 @@ public class BST<Thing extends Comparable<Thing>> {
         if (root == null) {
 
             root = new TreeNode(a);
+            root.parent = null;
         } else {
             if (duplicationCheck(root, a) == true) {
                 System.out.println("No duplicate values allowed!");
                 return;
             }
             root.inputKey(a);
+            setParent(root,searchNode(root,a));
         }
     }
 
@@ -64,7 +68,12 @@ public class BST<Thing extends Comparable<Thing>> {
         }
 
         inOrderTraversal(node.left);
-        System.out.print(node.value + " ");
+        if(node.parent == null){
+            System.out.print(node.value + " ");
+        }
+        else{
+            System.out.print(node.value + "(" + node.parent.value + ") ");
+        }
         inOrderTraversal(node.right);
 
 
@@ -94,10 +103,83 @@ public class BST<Thing extends Comparable<Thing>> {
         }
     }
 
-    public TreeNode deleteNode(TreeNode node, Thing a) {
-        return null;
-    }
+    public void deleteNode(Thing a) {
+        TreeNode node = searchNode(root, a);
+        if (node == null) {
+            System.out.println("Node not found");
+            return;
+        }
+        //If node has no children
+        if (node.left == null && node.right == null) {
+            if (node.parent.left == node) {
+                node.parent.left = null;
+            } else {
+                node.parent.right = null;
+            }
+        }
+        //If node has one child
+        else if (node.left == null || node.right == null) {
+            if(node.left == null){
+                if (a.compareTo((Thing) node.parent.value) < 0){
+                    node.parent.left = node.right;
+                }
+                if (a.compareTo((Thing) node.parent.value) > 0){
+                    node.parent.right = node.right;
+                }
+            }
+            if(node.right == null){
+                if (a.compareTo((Thing) node.parent.value) < 0){
+                    node.parent.left = node.left;
+                }
+                if (a.compareTo((Thing) node.parent.value) > 0){
+                    node.parent.right = node.left;
+                }
+            }
+        }
+        //If node has two child
+        else if (node.left != null && node.right != null) {
+            node.left.parent = node.right.parent = lowestInOrder(node);
+        }
 
+    }
+    private TreeNode lowestInOrder(TreeNode node) {
+        if (node == null) {
+            return node.parent;
+        }
+        else if (node.left == null) {
+            return lowestInOrder(node.right);
+        }
+        else{
+            return lowestInOrder(node.left);
+        }
+    }
+    private void setParent(TreeNode a, TreeNode node){
+        if(searchNode(root, (Thing) node.value) == null){
+            return;
+        }
+        if(a.left == node){
+            node.parent = a;
+        }
+        else if (a.right == node){
+            node.parent = a;
+        }
+        else if (node.value.compareTo(a.value) < 0) {
+            if(a.left == null){
+                return;
+            }
+            else {
+                setParent(a.left, node);
+            }
+        }
+        else{
+            if(a.right == null){
+                return;
+            }
+            else{
+                setParent(a.right,node);
+            }
+        }
+    }
     public void displayTree(){
         System.out.println(getRoot() + "- root");
         for(int i = 0; i < TreeNode.nodes.size(); i++){

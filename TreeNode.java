@@ -1,3 +1,5 @@
+import com.sun.source.tree.Tree;
+
 import java.util.ArrayList;
 
 public class TreeNode<Thing extends Comparable<Thing>>{
@@ -7,10 +9,11 @@ public class TreeNode<Thing extends Comparable<Thing>>{
 	Thing value;
 	TreeNode right = null;
 
+	TreeNode parent;
+
 	public static ArrayList<Comparable> nodes = new ArrayList<>();
 	
 	public TreeNode (Thing a) {
-
 		value = a;
 	}
 
@@ -42,13 +45,15 @@ public class TreeNode<Thing extends Comparable<Thing>>{
 
 
 
+
+
 		/*
 		else {
 			System.out.println("error");
 
 		}*/
 	}
-	
 
-	
-}	
+
+
+}
