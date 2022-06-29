@@ -119,38 +119,109 @@ public class BST<Thing extends Comparable<Thing>> {
         }
         //If node has one child
         else if (node.left == null || node.right == null) {
-            if(node.left == null){
-                if (a.compareTo((Thing) node.parent.value) < 0){
+            if (node.left == null) {
+                if (a.compareTo((Thing) node.parent.value) < 0) {
                     node.parent.left = node.right;
+                    node.right.parent = node.parent;
                 }
-                if (a.compareTo((Thing) node.parent.value) > 0){
+                if (a.compareTo((Thing) node.parent.value) > 0) {
                     node.parent.right = node.right;
+                    node.right.parent = node.parent;
                 }
             }
-            if(node.right == null){
-                if (a.compareTo((Thing) node.parent.value) < 0){
+            if (node.right == null) {
+                if (a.compareTo((Thing) node.parent.value) < 0) {
                     node.parent.left = node.left;
+                    node.left.parent = node.parent;
                 }
-                if (a.compareTo((Thing) node.parent.value) > 0){
+                if (a.compareTo((Thing) node.parent.value) > 0) {
                     node.parent.right = node.left;
+                    node.left.parent = node.parent;
                 }
             }
         }
         //If node has two child
         else if (node.left != null && node.right != null) {
-            node.left.parent = node.right.parent = lowestInOrder(node);
+            TreeNode lowestNode = lowestInOrder(node.left);
+            if (node == root) {
+                System.out.println("L1");
+                lowestNode.parent.right = null;
+                System.out.println("L11");
+                lowestNode.left = node.left;
+                System.out.println("L111");
+                lowestNode.right = node.right;
+                System.out.println("L1111");
+                if(node.left == lowestNode){
+                    node.right.parent = lowestNode;
+                    System.out.println("L11111");
+                    root = lowestNode;
+                    System.out.println("L111111");
+                    root.parent = null;
+                    System.out.println("L1111111");
+                    return;
+                }
+                else{
+                    node.left.parent = lowestNode;
+                    node.right.parent = lowestNode;
+                    System.out.println("L11111");
+                    root = lowestNode;
+                    System.out.println("L111111");
+                    root.parent = null;
+                    System.out.println("L1111111");
+                    return;
+                }
+            }
+            else {
+                if (a.compareTo((Thing) node.parent.value) < 0) {
+                    System.out.println("L2");
+                    System.out.println(lowestNode);
+                    System.out.println(lowestNode.value);
+                    System.out.println(lowestNode.parent);
+                    System.out.println(lowestNode.parent.value);
+                    System.out.println(node);
+                    System.out.println(node.value);
+                    if(lowestNode.parent == node) {
+                        System.out.println("L8");
+                        lowestNode.right = node.right;
+                        lowestNode.parent = node.parent;
+                        node.parent.left = lowestNode;
+                        node.right.parent = lowestNode;
+                    }
+                    else {
+                        System.out.println("L9");
+                        lowestNode.parent.right = null;
+                        lowestNode.left = node.left;
+                        lowestNode.right = node.right;
+                        lowestNode.parent = node.parent;
+                        node.parent.left = lowestNode;
+                    }
+                }
+                    //node.left.parent = node.parent;
+                    if (a.compareTo((Thing) node.parent.value) > 0) {
+                        System.out.println("L5");
+                        System.out.println("L7");
+                        lowestNode.parent.right = null;
+                        lowestNode.left = node.left;
+                        lowestNode.right = node.right;
+                        lowestNode.parent = node.parent;
+                        node.parent.right = lowestNode;
+                    }
+                    //node.left.parent = node.parent;
+                }
+            }
         }
 
-    }
-    private TreeNode lowestInOrder(TreeNode node) {
-        if (node == null) {
-            return node.parent;
-        }
-        else if (node.left == null) {
-            return lowestInOrder(node.right);
+
+    public TreeNode lowestInOrder(TreeNode node) {
+        System.out.println("Loop 1");
+        if (node.right == null) {
+            System.out.println("Loop 3");
+            System.out.println(node.value);
+            return node;
         }
         else{
-            return lowestInOrder(node.left);
+            System.out.println("Loop 4");
+            return lowestInOrder(node.right);
         }
     }
     private void setParent(TreeNode a, TreeNode node){

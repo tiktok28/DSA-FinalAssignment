@@ -38,30 +38,44 @@ public class Main {
             if (option == 1) {
                 Comparable inputValue;
 
-                for (int i = 0; i < 7; i++) {
-                    while (!(Array.size() == 7)) {
-                        System.out.println("Please enter an Element");
-                        try{
-                            inputValue = Integer.parseInt(keyboard.next());
-                            if (!(Array.contains(inputValue))) {
-                                Array.add(inputValue);
-                            } else {
-                                System.out.println("No duplicates allowed!");
-                            }
-                        }
-                        catch(Exception e){
-                            inputValue = keyboard.next();
-                            if (!(Array.contains(inputValue))) {
-                                Array.add(inputValue);
-                            } else {
-                                System.out.println("No duplicates allowed!");
-                            }
-                        }
-                    }
-                }
-                for (int i = 0; i < Array.size(); i++) {
-                    tree.input(Array.get(i));
-                }
+//                for (int i = 0; i < 7; i++) {
+//                    while (!(Array.size() == 7)) {
+//                        System.out.println("Please enter an Element");
+//                        try{
+//                            inputValue = Integer.parseInt(keyboard.next());
+//                            if (!(Array.contains(inputValue))) {
+//                                Array.add(inputValue);
+//                            } else {
+//                                System.out.println("No duplicates allowed!");
+//                            }
+//                        }
+//                        catch(Exception e){
+//                            inputValue = keyboard.next();
+//                            if (!(Array.contains(inputValue))) {
+//                                Array.add(inputValue);
+//                            } else {
+//                                System.out.println("No duplicates allowed!");
+//                            }
+//                        }
+//                    }
+//                }
+//                for (int i = 0; i < Array.size(); i++) {
+//                    tree.input(Array.get(i));
+//                }
+                tree.input(50);
+                tree.input(30);
+                tree.input(70);
+                tree.input(20);
+                tree.input(40);
+                tree.input(60);
+                tree.input(80);
+                tree.input(65);
+                tree.input(64);
+                tree.input(67);
+                tree.input(66);
+                tree.input(68);
+//                tree.input(19);
+//                tree.input(25);
             }
             else if(option == 2){
                 System.out.println("Select a node to be deleted");
