@@ -47,6 +47,7 @@ public class TreeNode<Thing extends Comparable<Thing>>{
 
 
 
+
 		/*
 		else {
 			System.out.println("error");

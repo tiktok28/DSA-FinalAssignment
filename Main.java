@@ -74,8 +74,9 @@ public class Main {
                 tree.input(67);
                 tree.input(66);
                 tree.input(68);
-//                tree.input(19);
-//                tree.input(25);
+                tree.input(10);
+                tree.input(19);
+                tree.input(25);
             }
             else if(option == 2){
                 System.out.println("Select a node to be deleted");
@@ -122,9 +123,10 @@ public class Main {
                 tree.displayTree();
             }
             else if(option == 6){
+                System.out.println("Exiting...");
                 running = false;
             }else{
-                System.out.println("Not done yet");
+                System.out.println("Please input a valid option!");
             }
         }while(running);
 

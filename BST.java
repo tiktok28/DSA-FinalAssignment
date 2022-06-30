@@ -1,9 +1,9 @@
-import com.sun.source.tree.Tree;
+import java.util.ArrayList;
 
 public class BST<Thing extends Comparable<Thing>> {
 
     TreeNode root = null;
-
+//    private ArrayList<ArrayList<TreeNode>> treeData = new ArrayList<ArrayList<TreeNode>>();
     public  BST() {
 
     }
@@ -144,83 +144,68 @@ public class BST<Thing extends Comparable<Thing>> {
         else if (node.left != null && node.right != null) {
             TreeNode lowestNode = lowestInOrder(node.left);
             if (node == root) {
-                System.out.println("L1");
-                lowestNode.parent.right = null;
-                System.out.println("L11");
-                lowestNode.left = node.left;
-                System.out.println("L111");
-                lowestNode.right = node.right;
-                System.out.println("L1111");
                 if(node.left == lowestNode){
+                    lowestNode.right = node.right;
                     node.right.parent = lowestNode;
-                    System.out.println("L11111");
                     root = lowestNode;
-                    System.out.println("L111111");
                     root.parent = null;
-                    System.out.println("L1111111");
-                    return;
                 }
                 else{
+                    lowestNode.parent.right = null;
+                    lowestNode.left = node.left;
+                    lowestNode.right = node.right;
                     node.left.parent = lowestNode;
                     node.right.parent = lowestNode;
-                    System.out.println("L11111");
                     root = lowestNode;
-                    System.out.println("L111111");
                     root.parent = null;
-                    System.out.println("L1111111");
-                    return;
                 }
             }
             else {
                 if (a.compareTo((Thing) node.parent.value) < 0) {
-                    System.out.println("L2");
-                    System.out.println(lowestNode);
-                    System.out.println(lowestNode.value);
-                    System.out.println(lowestNode.parent);
-                    System.out.println(lowestNode.parent.value);
-                    System.out.println(node);
-                    System.out.println(node.value);
                     if(lowestNode.parent == node) {
-                        System.out.println("L8");
                         lowestNode.right = node.right;
                         lowestNode.parent = node.parent;
                         node.parent.left = lowestNode;
                         node.right.parent = lowestNode;
                     }
                     else {
-                        System.out.println("L9");
                         lowestNode.parent.right = null;
                         lowestNode.left = node.left;
                         lowestNode.right = node.right;
                         lowestNode.parent = node.parent;
                         node.parent.left = lowestNode;
+                        node.left.parent = lowestNode;
+                        node.right.parent = lowestNode;
                     }
                 }
                     //node.left.parent = node.parent;
-                    if (a.compareTo((Thing) node.parent.value) > 0) {
-                        System.out.println("L5");
-                        System.out.println("L7");
+                if (a.compareTo((Thing) node.parent.value) > 0) {
+                    if(lowestNode.parent == node){
+                        lowestNode.parent = node.parent;
+                        lowestNode.right = node.right;
+                        lowestNode.right.parent = lowestNode;
+                        node.parent.right = lowestNode;
+                    }
+                    else{
                         lowestNode.parent.right = null;
                         lowestNode.left = node.left;
+                        lowestNode.left.parent = lowestNode;
                         lowestNode.right = node.right;
+                        lowestNode.right.parent = lowestNode;
                         lowestNode.parent = node.parent;
                         node.parent.right = lowestNode;
                     }
-                    //node.left.parent = node.parent;
                 }
             }
         }
+    }
 
 
-    public TreeNode lowestInOrder(TreeNode node) {
-        System.out.println("Loop 1");
+    private TreeNode lowestInOrder(TreeNode node) {
         if (node.right == null) {
-            System.out.println("Loop 3");
-            System.out.println(node.value);
             return node;
         }
         else{
-            System.out.println("Loop 4");
             return lowestInOrder(node.right);
         }
     }
@@ -252,32 +237,49 @@ public class BST<Thing extends Comparable<Thing>> {
         }
     }
     public void displayTree(){
-        System.out.println(getRoot() + "- root");
-        for(int i = 0; i < TreeNode.nodes.size(); i++){
-            System.out.println(TreeNode.nodes.get(i));
+//        System.out.println(getRoot() + "- root");
+//        for(int i = 0; i < TreeNode.nodes.size(); i++){
+//            System.out.println(TreeNode.nodes.get(i));
+//        }
+//        treeCalculator(root);
+//        for(int i = 0; i < treeData.size(); i++){
+//            if(treeData.get(i).get(0) != null){
+//                System.out.println(treeData.get(i).get(0).value);
+//            }
+//            if(treeData.get(i).get(1) != null){
+//                System.out.println(treeData.get(i).get(1).value);
+//            }
+//        }
+        print("", root, false);
+    }
+    private void print(String prefix, TreeNode node, boolean isLeft) {
+        if (node != null) {
+            System.out.println (prefix + (isLeft ? "|-- " : "\\-- ") + node.value);
+            print(prefix + (isLeft ? "|   " : "    "), node.left, true);
+            print(prefix + (isLeft ? "|   " : "    "), node.right, false);
         }
     }
-
+//    private void treeCalculator(TreeNode node){
+//        if(node == null){
+//            return;
+//        }
+//        ArrayList<TreeNode> array = new ArrayList<TreeNode>();
+//        array.add(node.left);
+//        array.add(node.right);
+//        treeData.add(array);
+//
+//        treeCalculator(node.left);
+//        treeCalculator(node.right);
+//
+//    }
 
 
 
 }
+
+
+
 /*
-    public void deleteNode(Thing a) {
-        TreeNode node = searchNode(root, a);
-        if(node == null){
-            System.out.println("Node not found.");
-            return;
-        }
-        if(node.left == null && node.right == null){
-            node.value = null;
-        }
-
-
-    }
-
-
-
     public int getHeight(TreeNode node, int value){
         if(node==null){
             return -1;
