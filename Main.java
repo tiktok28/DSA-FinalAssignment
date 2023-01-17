@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Main {
 
@@ -7,63 +6,63 @@ public class Main {
 
         Scanner keyboard = new Scanner(System.in);
         BST tree = new BST();
-        ArrayList<Comparable> Array = new ArrayList<Comparable>();
-
-//        System.out.println("""
-//                ██████╗ ██╗███╗   ██╗ █████╗ ██████╗ ██╗   ██╗    ███████╗███████╗ █████╗ ██████╗  ██████╗██╗  ██╗    ████████╗██████╗ ███████╗███████╗
-//                ██╔══██╗██║████╗  ██║██╔══██╗██╔══██╗╚██╗ ██╔╝    ██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝██║  ██║    ╚══██╔══╝██╔══██╗██╔════╝██╔════╝
-//                ██████╔╝██║██╔██╗ ██║███████║██████╔╝ ╚████╔╝     ███████╗█████╗  ███████║██████╔╝██║     ███████║       ██║   ██████╔╝█████╗  █████╗ \s
-//                ██╔══██╗██║██║╚██╗██║██╔══██║██╔══██╗  ╚██╔╝      ╚════██║██╔══╝  ██╔══██║██╔══██╗██║     ██╔══██║       ██║   ██╔══██╗██╔══╝  ██╔══╝ \s
-//                ██████╔╝██║██║ ╚████║██║  ██║██║  ██║   ██║       ███████║███████╗██║  ██║██║  ██║╚██████╗██║  ██║       ██║   ██║  ██║███████╗███████╗
-//                ╚═════╝ ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝       ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝       ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝
-//
-//                """);
-
+// Main Menu
         boolean running = true;
 
         do {
-//            System.out.println("""
-//                .----------------------.
-//                | 1.Insert Node\s       |
-//                | 2.Delete Node\s       |
-//                | 3.Search Node\s       |
-//                | 4.Tree Traversals\s   |
-//                | 5.Display Tree\s      |
-//                | 6.Exit\s              |
-//                '----------------------'""");
+            System.out.println("""
+                .----------------------.
+                | 1.Insert Node\s       |
+                | 2.Delete Node\s       |
+                | 3.Search Node\s       |
+                | 4.Tree Traversals\s   |
+                | 5.Display Tree\s      |
+                | 6.Exit\s              |
+                '----------------------'""");
             System.out.print("\nPick an option: ");
 
             int option = keyboard.nextInt();
 
             if (option == 1) {
-                Comparable inputValue;
-
-                for (int i = 0; i < 7; i++) {
-                    while (!(Array.size() == 7)) {
-                        System.out.println("Please enter an Element");
-                        inputValue = keyboard.next();
-                        if (!(Array.contains(inputValue))) {
-                            Array.add(inputValue);
-                        } else {
-                            System.out.println("No duplicates allowed!");
-                        }
+                System.out.println("Please enter an Element");
+                Comparable inputValue = keyboard.next();
+                try{
+                    inputValue = Integer.parseInt((String) inputValue);
+                    tree.input(inputValue);
                     }
-                }
-                for (int i = 0; i < Array.size(); i++) {
-                    tree.input(Array.get(i));
+                catch(Exception e){
+                    tree.input(inputValue);
                 }
             }
             else if(option == 2){
-                System.out.println("Node Deletion not done yet");
+                System.out.println("Select a node to be deleted");
+                Comparable inputValue = keyboard.next();
+                try {
+                    inputValue = Integer.parseInt((String) inputValue);
+                    tree.deleteNode(inputValue);
+                }
+                catch(Exception e){
+                    tree.deleteNode(inputValue);
+                }
             }
             else if(option == 3){
+                System.out.println("Input a node to be searched.");
                 Comparable searchItem = keyboard.next();
-                if(tree.searchNode(tree.root, searchItem) == null){
-                    System.out.println("The node does not exist");
-                }else{
-                    System.out.println(searchItem + " Exists in the tree");
+                try {
+                    searchItem = Integer.parseInt((String) searchItem);
+                    tree.searchNode(tree.root, searchItem);
                 }
-            }else if(option == 4) {
+                catch(Exception e){
+                    tree.searchNode(tree.root, searchItem);
+                }
+                if(tree.searchNode(tree.root, searchItem) != null){
+                    System.out.println("Node " + searchItem + " found");
+                }
+                else{
+                    System.out.println("Node not found");
+                }
+            }
+            else if(option == 4) {
 
                 System.out.println("PreOrder Traversal:");
                 tree.preOrderTraversal(tree.root);
@@ -81,18 +80,13 @@ public class Main {
                 tree.displayTree();
             }
             else if(option == 6){
+                System.out.println("Exiting...");
                 running = false;
             }else{
-                System.out.println("Not done yet");
+                System.out.println("Please input a valid option!");
             }
-        }while(running);
-
-
-
-
-
-        //tree.deleteNode(20);
-
+        }
+        while(running);
         keyboard.close();
     }
 }
